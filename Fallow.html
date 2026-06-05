@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fallow — Modern British Restaurant London</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Georgia,'Times New Roman',serif;background:#F5F0E8;color:#1C1612;overflow-x:hidden}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:rgba(28,22,18,0.92);backdrop-filter:blur(10px)}
+  .logo{font-size:26px;letter-spacing:6px;color:#F5F0E8;font-style:italic;font-weight:normal}
+  .nav-links{display:flex;gap:24px;list-style:none}
+  .nav-links a{font-family:'Trebuchet MS',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);transition:color .2s}
+  .nav-links a:hover{color:#fff}
+  .nav-cta{background:#C4893A!important;color:#fff!important;padding:8px 18px;border-radius:2px}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+  .hamburger span{display:block;width:22px;height:1.5px;background:#fff}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#1C1612 0%,#2d1f12 40%,#3D2B1A 70%,#1C1612 100%)}
+  .hero-pattern{position:absolute;inset:0;opacity:.06;
+    background-image:repeating-linear-gradient(45deg,#C4893A 0,#C4893A 1px,transparent 0,transparent 50%);
+    background-size:20px 20px}
+  .hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle,rgba(196,137,58,.25) 0%,transparent 70%);
+    top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+  .hero-content{position:relative;z-index:2;padding:140px 28px 80px;max-width:680px;animation:fadeUp .9s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+  .hero-label{font-family:'Trebuchet MS',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#C4893A;margin-bottom:18px}
+  .hero h1{font-size:clamp(48px,10vw,88px);font-weight:normal;line-height:1.05;color:#F5F0E8;margin-bottom:20px}
+  .hero h1 em{font-style:italic;color:#E8DFC8}
+  .hero p{color:rgba(245,240,232,.65);font-size:16px;line-height:1.75;max-width:500px;margin-bottom:36px;font-family:'Trebuchet MS',sans-serif}
+  .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Trebuchet MS',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;transition:all .25s;font-weight:500}
+  .btn-light{background:#F5F0E8;color:#1C1612}
+  .btn-light:hover{background:#E8DFC8}
+  .btn-wa{background:#25D366;color:#fff}
+  .btn-wa:hover{background:#1ebe59}
+  .btn-dark{background:#1C1612;color:#F5F0E8}
+  .btn-dark:hover{background:#3D2B1A}
+  .btn-accent{background:#C4893A;color:#fff}
+  .btn-accent:hover{background:#a87230}
+
+  /* STATS BAR */
+  .stats{background:#1C1612;padding:22px 28px}
+  .stats-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
+  .stat{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .stat-num{font-size:26px;color:#F5F0E8;letter-spacing:1px}
+  .stat-stars{color:#C4893A;font-size:13px}
+  .stat-lbl{font-family:'Trebuchet MS',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+  .stat-div{width:1px;height:36px;background:rgba(255,255,255,.1)}
+
+  /* SECTION SHARED */
+  .section{padding:clamp(60px,10vw,110px) 28px}
+  .section-max{max-width:1100px;margin:0 auto}
+  .chip{font-family:'Trebuchet MS',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8B6F47;display:block;margin-bottom:14px}
+  .chip-lt{color:rgba(245,240,232,.5)}
+  h2.display{font-size:clamp(34px,6vw,58px);font-weight:normal;line-height:1.1;margin-bottom:20px}
+  h2.display em{font-style:italic;color:#8B6F47}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+  .about-text p{font-family:'Trebuchet MS',sans-serif;color:#5a4535;font-size:15px;line-height:1.8;margin-bottom:14px}
+  .about-text .btn{margin-top:14px}
+  .about-imgs{position:relative;height:480px}
+  .img-a,.img-b{position:absolute;border-radius:3px;overflow:hidden;background:#2d1f12}
+  .img-a{width:74%;height:78%;top:0;right:0;box-shadow:0 20px 50px rgba(28,22,18,.2)}
+  .img-b{width:50%;height:50%;bottom:0;left:0;border:5px solid #F5F0E8;z-index:2;box-shadow:0 10px 30px rgba(28,22,18,.15)}
+  /* CSS art food plates inside image boxes */
+  .img-a::before{content:'';display:block;width:100%;height:100%;
+    background:linear-gradient(160deg,#3D2B1A 0%,#5C3D1E 30%,#8B6340 60%,#C4893A 100%)}
+  .img-b::before{content:'';display:block;width:100%;height:100%;
+    background:linear-gradient(140deg,#2d3a2d 0%,#3D5A3E 50%,#5a7a5a 100%)}
+  /* Decorative plate circles */
+  .img-a::after{content:'🍽';font-size:64px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.35}
+  .img-b::after{content:'🌿';font-size:40px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.4}
+
+  /* MENU */
+  .menu-section{background:#1C1612;color:#F5F0E8}
+  .menu-head{text-align:center;margin-bottom:48px}
+  .menu-head h2{color:#F5F0E8}
+  .menu-head h2 em{color:#C4893A}
+  .menu-head p{font-family:'Trebuchet MS',sans-serif;color:rgba(255,255,255,.45);font-size:14px;margin-top:8px}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .menu-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:3px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+  .menu-card:hover{transform:translateY(-5px);box-shadow:0 20px 45px rgba(0,0,0,.4)}
+  .menu-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:56px}
+  .mc1{background:linear-gradient(135deg,#2d1f12,#5C3D1E)}
+  .mc2{background:linear-gradient(135deg,#1a0f0a,#3D2B1A)}
+  .mc3{background:linear-gradient(135deg,#1a2d1a,#3D5A3E)}
+  .mc4{background:linear-gradient(135deg,#0d1a2d,#1a3a5a)}
+  .menu-body{padding:18px 20px 22px}
+  .menu-body h3{font-size:20px;font-weight:normal;margin-bottom:5px}
+  .menu-body p{font-family:'Trebuchet MS',sans-serif;font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:12px}
+  .tag{font-family:'Trebuchet MS',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#C4893A;border:1px solid #C4893A;padding:3px 9px;border-radius:20px}
+  .menu-foot{text-align:center;margin-top:40px}
+
+  /* EXPERIENCE */
+  .exp-section{background:#3D5A3E;color:#F5F0E8}
+  .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+  .exp-text h2{color:#F5F0E8}
+  .exp-text h2 em{color:#E8DFC8}
+  .exp-text p{font-family:'Trebuchet MS',sans-serif;color:rgba(255,255,255,.7);font-size:15px;line-height:1.8;margin-bottom:24px}
+  .exp-list{list-style:none;margin-bottom:32px}
+  .exp-list li{font-family:'Trebuchet MS',sans-serif;font-size:13px;color:rgba(255,255,255,.75);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:10px}
+  .exp-list li::before{content:'✦';color:#C4893A;font-size:11px;flex-shrink:0}
+  .exp-img-box{border-radius:4px;overflow:hidden;height:440px;background:linear-gradient(160deg,#1C1612 0%,#2d3a2d 40%,#3D5A3E 100%);display:flex;align-items:center;justify-content:center;font-size:80px;position:relative}
+  .exp-img-box::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(28,22,18,.6) 0%,transparent 50%)}
+
+  /* REVIEWS */
+  .reviews-section{background:#F5F0E8}
+  .reviews-head{text-align:center;margin-bottom:44px}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+  .rcard{background:#FDFAF5;border:1px solid #E8DFC8;border-radius:3px;padding:28px 24px}
+  .rcard.featured{background:#1C1612;color:#F5F0E8;border-color:#1C1612;transform:translateY(-10px)}
+  .stars{color:#C4893A;font-size:15px;margin-bottom:14px}
+  .rcard blockquote{font-size:15px;line-height:1.75;font-style:italic;margin-bottom:18px;color:inherit}
+  .rname{font-family:'Trebuchet MS',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8B6F47}
+  .rcard.featured .rname{color:rgba(255,255,255,.4)}
+
+  /* CONTACT */
+  .contact-section{background:#4A3728;color:#F5F0E8}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px}
+  .contact-section h2{color:#F5F0E8}
+  .detail-list{list-style:none;margin-bottom:28px}
+  .detail-list li{font-family:'Trebuchet MS',sans-serif;font-size:13px;color:rgba(255,255,255,.7);padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+  .detail-list li span.icon{font-size:16px;flex-shrink:0;margin-top:1px;opacity:.7}
+  .map-box{background:rgba(0,0,0,.3);border-radius:4px;height:180px;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.08);overflow:hidden}
+  .map-box iframe{width:100%;height:100%;border:none;border-radius:4px;filter:grayscale(30%)}
+  .contact-actions p{font-family:'Trebuchet MS',sans-serif;color:rgba(255,255,255,.6);font-size:14px;line-height:1.7;margin-bottom:24px}
+  .action-btn{display:flex;align-items:center;gap:14px;padding:15px 18px;border-radius:3px;margin-bottom:10px;border:1px solid rgba(255,255,255,.1);transition:transform .2s,opacity .2s;cursor:pointer}
+  .action-btn:hover{transform:translateX(4px);opacity:.88}
+  .action-btn .ab-icon{font-size:22px;flex-shrink:0}
+  .action-btn strong{display:block;font-family:'Trebuchet MS',sans-serif;font-size:14px;font-weight:600}
+  .action-btn small{display:block;font-family:'Trebuchet MS',sans-serif;font-size:11px;opacity:.55;margin-top:1px}
+  .ab-wa{background:#25D366;color:#fff;border-color:#25D366}
+  .ab-call{background:rgba(255,255,255,.06)}
+  .ab-web{background:rgba(255,255,255,.06)}
+  .ab-map{background:rgba(255,255,255,.06)}
+
+  /* FOOTER */
+  footer{background:#1C1612;padding:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap 16px;gap:12px}
+  footer .fl{font-size:22px;letter-spacing:4px;color:#F5F0E8;font-style:italic}
+  footer p{font-family:'Trebuchet MS',sans-serif;font-size:11px;color:rgba(255,255,255,.3)}
+  footer .flinks{display:flex;gap:20px}
+  footer .flinks a{font-family:'Trebuchet MS',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);transition:color .2s}
+  footer .flinks a:hover{color:#fff}
+
+  /* RESPONSIVE */
+  @media(max-width:860px){
+    .about-grid,.exp-grid,.contact-grid{grid-template-columns:1fr;gap:36px}
+    .about-imgs{height:300px}
+    .exp-img-box{height:260px}
+    .rcard.featured{transform:none}
+    nav{padding:16px 20px}
+    .nav-links{position:fixed;top:0;right:0;height:100vh;width:240px;background:#1C1612;flex-direction:column;justify-content:center;gap:24px;padding:32px;transform:translateX(100%);transition:transform .35s;z-index:998}
+    .nav-links.open{transform:translateX(0)}
+    .hamburger{display:flex;z-index:999}
+    .hero-content{padding:110px 20px 60px}
+    .hero-btns{flex-direction:column}
+    .btn{justify-content:center}
+    .stats-inner{gap:16px}
+    .stat-div{display:none}
+  }
+  @media(max-width:480px){
+    .menu-grid{grid-template-columns:1fr 1fr}
+    .reviews-grid{grid-template-columns:1fr}
+    footer{flex-direction:column;align-items:flex-start}
+  }
+
+  /* ANIMATIONS */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">Fallow</div>
+  <button class="hamburger" id="hbg" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeNav()">About</a></li>
+    <li><a href="#menu" onclick="closeNav()">Menu</a></li>
+    <li><a href="#experience" onclick="closeNav()">Experience</a></li>
+    <li><a href="#reviews" onclick="closeNav()">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta" onclick="closeNav()">Reserve</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <p class="hero-label">52 Haymarket &middot; London SW1Y 4RP</p>
+    <h1>Where Nothing<br><em>Goes to Waste</em></h1>
+    <p>Modern British cuisine crafted from carefully sourced, whole-animal ingredients. A contemporary dining experience unlike any other in London.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-light">Reserve a Table</a>
+      <a href="https://wa.me/442080171788?text=Hello%2C%20I%27d%20like%20to%20place%20an%20order%20at%20Fallow%20Restaurant." class="btn btn-wa" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Order on WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat"><span class="stat-num">4.7</span><span class="stat-stars">★★★★★</span><span class="stat-lbl">Google Rating</span></div>
+    <div class="stat-div"></div>
+    <div class="stat"><span class="stat-num">11,541</span><span class="stat-lbl">Reviews</span></div>
+    <div class="stat-div"></div>
+    <div class="stat"><span class="stat-num">Top 1%</span><span class="stat-lbl">London Restaurants</span></div>
+    <div class="stat-div"></div>
+    <div class="stat"><span class="stat-num">LGBTQ+</span><span class="stat-lbl">Friendly</span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-max about-grid">
+    <div class="about-text reveal">
+      <span class="chip">Our Philosophy</span>
+      <h2 class="display">Root-to-Tip.<br><em>Nose-to-Tail.</em></h2>
+      <p>Fallow was born from a radical idea: use everything. Our kitchen wastes nothing — every ingredient is sourced with intention and treated with deep respect, from whole animals to foraged herbs.</p>
+      <p>Set in the heart of Haymarket, our contemporary dining room is where sustainability meets exceptional craft. Join us at the Chef's Counter for an immersive kitchen experience, or settle in for a long, indulgent lunch.</p>
+      <a href="#contact" class="btn btn-dark">Book Your Table</a>
+    </div>
+    <div class="about-imgs reveal">
+      <div class="img-a"></div>
+      <div class="img-b"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section menu-section" id="menu">
+  <div class="section-max">
+    <div class="menu-head reveal">
+      <span class="chip chip-lt">Signature Dishes</span>
+      <h2 class="display">A Taste of <em>Fallow</em></h2>
+      <p>Dishes that have become icons of our ever-evolving menu.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card reveal">
+        <div class="menu-img mc1">🍄</div>
+        <div class="menu-body"><h3>Mushroom Parfait</h3><p>Silky parfait, toasted brioche, pickled mushrooms</p><span class="tag">Must Try</span></div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-img mc2">🥩</div>
+        <div class="menu-body"><h3>Beef Short Rib</h3><p>72-hour rib, bone marrow glaze, seasonal greens</p><span class="tag">Signature</span></div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-img mc3">🌽</div>
+        <div class="menu-body"><h3>Corn Ribs</h3><p>Fermented chilli butter, smoked crème fraîche, lime</p><span class="tag">Fan Favourite</span></div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-img mc4">🐟</div>
+        <div class="menu-body"><h3>Cod's Head</h3><p>Roasted cod head, smoked butter, sea herbs</p><span class="tag">Chef's Pick</span></div>
+      </div>
+    </div>
+    <div class="menu-foot reveal">
+      <a href="https://fallowrestaurant.com" target="_blank" class="btn btn-accent">View Full Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section exp-section" id="experience">
+  <div class="section-max exp-grid">
+    <div class="exp-text reveal">
+      <span class="chip chip-lt">The Space</span>
+      <h2 class="display">The Chef's<br><em>Counter</em></h2>
+      <p>Sit ringside as our brigade crafts each dish. The Chef's Counter is the most immersive way to experience Fallow — a front-row seat to fire, precision, and creativity.</p>
+      <ul class="exp-list">
+        <li>Live kitchen view</li>
+        <li>Direct chef interaction</li>
+        <li>Exclusive tasting notes</li>
+        <li>Available for all party sizes</li>
+      </ul>
+      <a href="#contact" class="btn btn-light">Request Counter Seating</a>
+    </div>
+    <div class="exp-img-box reveal">🍳</div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews-section" id="reviews">
+  <div class="section-max">
+    <div class="reviews-head reveal">
+      <span class="chip">What Guests Say</span>
+      <h2 class="display">Stories from<br><em>Our Table</em></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="rcard reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"One of the most fun dining experiences I've ever had. Sat at the Chef's Counter and was completely transfixed — every dish told a story."</blockquote>
+        <span class="rname">Bennett G. &middot; 3 months ago</span>
+      </div>
+      <div class="rcard featured reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Tomos was an absolutely outstanding host. My partner and I have been watching Fallow's YouTube channel for years and the food lived up to every moment."</blockquote>
+        <span class="rname">Sam &middot; 4 months ago</span>
+      </div>
+      <div class="rcard reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Must get the Mushroom parfait, corn ribs, and beef ribs. The parfait alone is worth every penny — rich, silky and served perfectly."</blockquote>
+        <span class="rname">Anup P. &middot; 2 months ago</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="section-max contact-grid">
+    <div class="contact-info reveal">
+      <span class="chip chip-lt">Find Us</span>
+      <h2 class="display">Come &amp; Dine</h2>
+      <ul class="detail-list">
+        <li><span c
